@@ -24,6 +24,6 @@ app.include_router(auth.router, prefix="/api")
 app.include_router(users.router, prefix="/api")
 app.include_router(courses.router, prefix="/api")
 
-@app.get("/")
+@app.get("/api/")
 def root():
     return {"message": "Hello World"}
