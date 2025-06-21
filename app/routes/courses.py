@@ -49,7 +49,7 @@ Opções de Personalização:
 
 **Subtítulo do Curso:** Desenvolva um subtítulo conciso e cativante que complemente o título e destaque um benefício chave ou o escopo do curso.
 
-**Introdução:** Elabore uma introdução envolvente em formato HTML, um overview geral sobre o curso de no máximo até 100 palavras. Utilize tags HTML básicas como: p, strong, em, ul, li.
+**Introdução:** Elabore uma introdução envolvente em formato HTML, um overview geral sobre o curso de no máximo até 50 palavras. Utilize tags HTML básicas como: p, strong, em, ul, li.
 
 **Imagem de Capa:** Se a opção 'Geração de Imagem de Capa' for 'Sim', gere uma descrição detalhada de uma imagem de capa relevante e de alta qualidade para o curso. Caso contrário, ignore esta instrução.
 
@@ -63,7 +63,7 @@ Cada aula deve ter um título e subtópicos relevantes. Ao final de cada módulo
 
 Inclua exemplos práticos, analogias e, quando aplicável, estudos de caso e exemplos. O conteúdo deve ser aprofundado o suficiente para o nível de profundidade especificado. Visto que temos dois módulos com 6 aulas cada, cada aula deve ter a numeração assim '[NumeroModulo].[NumeroAula]', por exemplo no módulo 1 teremos: 1.1 + nome ou tópico da aula.
 
-Utilize no máximo até 700 palavras ou menos para explicar o conteúdo de cada aula.
+Utilize no máximo até 500 palavras ou menos para explicar o conteúdo de cada aula.
 
 Utilize tags HTML básicas como: p, strong, em, ul, li, code, pre
 
