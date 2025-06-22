@@ -21,7 +21,6 @@ class Course(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
     subtitle = Column(String)
-    introduction = Column(Text)
     wallpaper = Column(String)
     modules = Column(JSON)  # Armazena a estrutura dos módulos como JSON
     final_summary = Column(JSON)  # Armazena o resumo final como JSON

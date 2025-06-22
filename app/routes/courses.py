@@ -49,8 +49,6 @@ Opções de Personalização:
 
 **Subtítulo do Curso:** Desenvolva um subtítulo conciso e cativante que complemente o título e destaque um benefício chave ou o escopo do curso.
 
-**Introdução:** Elabore uma introdução envolvente em formato HTML, um overview geral sobre o curso de no máximo até 50 palavras. Utilize tags HTML básicas como: p, strong, em, ul, li.
-
 **Imagem de Capa:** Se a opção 'Geração de Imagem de Capa' for 'Sim', gere uma descrição detalhada de uma imagem de capa relevante e de alta qualidade para o curso. Caso contrário, ignore esta instrução.
 
 **Estrutura do Curso (Módulos e Aulas):** Divida o curso em 3 módulos lógicos e sequenciais. Cada módulo deve conter um título claro e uma série de 6 aulas.
@@ -82,7 +80,6 @@ Responda APENAS com um JSON válido no seguinte formato, sem texto adicional ant
 {{
   "title": "Título do Curso",
   "subtitle": "Subtítulo do Curso",
-  "introduction": "<p>Introdução em HTML...</p>",
   "wallpaper": "URL ou descrição da imagem de capa",
   "modules": [
     {{
@@ -192,7 +189,6 @@ IMPORTANTE: Responda APENAS com o JSON, sem explicações, comentários ou texto
             new_course = models.Course(
                 title=course_data["title"],
                 subtitle=course_data["subtitle"],
-                introduction=course_data["introduction"],
                 wallpaper=course_data["wallpaper"],
                 modules=course_data["modules"],
                 final_summary=course_data["final_summary"],

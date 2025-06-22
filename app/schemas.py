@@ -69,7 +69,6 @@ class CourseContentModule(BaseModel):
 class CourseContent(BaseModel):
     title: str
     subtitle: str
-    introduction: str
     wallpaper: str
     modules: List[CourseContentModule]
     final_summary: CourseContentFinalSummary
@@ -79,7 +78,6 @@ class CourseResponse(BaseModel):
     id: int
     title: str
     subtitle: str
-    introduction: str
     wallpaper: str
     modules: List[CourseContentModule]
     final_summary: CourseContentFinalSummary
