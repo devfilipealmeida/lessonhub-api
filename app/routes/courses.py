@@ -51,8 +51,8 @@ Opções de Personalização:
 - Cada módulo deve ter um nome de capítulo criativo e em 1 palavra referente ao conteúdo do módulo para ser usado na opção de menus de uma sidebar.
 - Cada aula deve ter um título e subtópicos relevantes. Ao final de cada módulo, insira um parágrafo abrangendo o conteúdo das aulas que o aluno viu.
 - **Conteúdo Detalhado das Aulas:** Para cada aula, forneça explicações claras, detalhadas e didáticas em formato HTML.
-  Incluir exemplos práticos, analogias e, quando aplicável, estudos de caso e exemplos. O conteúdo deve ser aprofundado o suficiente para o nível de profundidade especificado. Crie as aulas em ordem e com o tópico da aula.
-  Utilize entre 500 e 510 palavras para o conteúdo de cada aula.
+  Incluir exemplos práticos, analogias e, quando aplicável, estudos de caso e exemplos. O conteúdo deve ser aprofundado o suficiente para o nível de profundidade especificado. Crie as aulas em ordem e com o tópico da aula (Não precisa colocar numeração da aula no título dela, somente o nome mesmo).
+  Utilize entre 550 e 600 palavras para o conteúdo de cada aula.
   Use apenas as tags HTML básicas: p, strong, em, ul, li, code, pre, h1 a h6, a, img (com src e alt).
 - **Exercícios Práticos:** Ao final de cada módulo ou em aulas específicas, inclua atividades práticas para fixação do conteúdo. Podem ser exercícios, estudos de caso para análise ou quizzes rápidos. Forneça o enunciado e, se aplicável, um gabarito ou sugestão de solução. Use entre 150 e 160 palavras. O conteúdo deve ser em HTML.
 - **Resumo Final do Curso:** Crie um resumo abrangente em HTML, recapitulando os principais pontos abordados em todo o curso e reforçando os aprendizados. Use 150 palavras.
@@ -124,7 +124,7 @@ A saída deve ser estruturada em JSON, seguindo o modelo abaixo:
 
 ​    {{
 
-​     "lesson_title": "2.1 Nome da Aula",
+​     "lesson_title": "Nome da Aula",
 
 ​     "content": "<p>Conteúdo da aula em HTML...</p>"
 
@@ -132,7 +132,7 @@ A saída deve ser estruturada em JSON, seguindo o modelo abaixo:
 
 ​    {{
 
-​     "lesson_title": "2.2 Nome da Aula",
+​     "lesson_title": "Nome da Aula",
 
 ​     "content": "<p>Conteúdo da aula em HTML...</p>"
 
@@ -164,7 +164,7 @@ A saída deve ser estruturada em JSON, seguindo o modelo abaixo:
 
 ​    {{
 
-​     "lesson_title": "3.1 Nome da Aula",
+​     "lesson_title": "Nome da Aula",
 
 ​     "content": "<p>Conteúdo da aula em HTML...</p>"
 
@@ -172,7 +172,7 @@ A saída deve ser estruturada em JSON, seguindo o modelo abaixo:
 
 ​    {{
 
-​     "lesson_title": "3.2 Nome da Aula",
+​     "lesson_title": "Nome da Aula",
 
 ​     "content": "<p>Conteúdo da aula em HTML...</p>"
 
