@@ -35,237 +35,144 @@ async def generate_course(
         db.commit()
 
         prompt = f"""
-Você é um especialista em criação de cursos online, com vasta experiência em didática e design instrucional.
+Você é um assistente educacional com ampla experiência em design instrucional, criação de cursos online e ensino técnico no tema **{course_request.topic}**.
 
-Sua tarefa é gerar um curso completo em {course_request.language}, bem estruturado e didático, com base no tópico fornecido pelo usuário, garantindo clareza, engajamento e profundidade adequada ao tema.
+Sua tarefa é gerar um curso completo em **{course_request.language}**, com estrutura progressiva, clareza didática, e conteúdo aprofundado. Use o tom de voz: **{course_request.voice_tone}**.
 
-**Entrada do Usuário:** {course_request.topic}
+Geração de Imagem de Capa: {'Sim' if course_request.generate_cover_image else 'Não'}  
+Se 'Sim', crie uma descrição coerente com o tema. Caso contrário, ignore essa instrução.
 
-Opções de Personalização:
+---
 
-- **Nível de Profundidade:** {course_request.depth_level} (Padrão: Intermediário)
-- **Tom de Voz:** {course_request.voice_tone} (Padrão: Formal)
-- **Geração de Imagem de Capa:** {'Sim' if course_request.generate_cover_image else 'Não'} (Padrão: Sim)
-- **Descrição da Imagem de Capa (se Geração de Imagem de Capa for 'Sim'):** [Descreva a imagem desejada, e.g., 'Um cérebro estilizado com circuitos de IA']
+## INSTRUÇÕES GERAIS DO CURSO
 
-**Instruções para Geração do Curso:**
+**Título:** Use [{course_request.topic}], corrigindo erros de escrita, se necessário.  
+**Subtítulo:** Crie um subtítulo conciso e cativante, destacando escopo ou benefício do curso.  
+**Imagem de capa:** Se aplicável, gere uma descrição coerente e relevante.
 
-- **Título do Curso:** [Entrada do Usuário corrigida se houver erros de escrita].
-- **Subtítulo do Curso:** Desenvolva um subtítulo conciso e cativante que complemente o título e destaque um benefício chave ou o escopo do curso.
-- **Imagem de Capa:** Se a opção 'Geração de Imagem de Capa' for 'Sim', gere uma imagem de capa relevante e de alta qualidade para o curso. Caso contrário, ignore esta instrução.
-- **Estrutura do Curso (Módulos e Aulas):** Divida o curso em 3 módulos lógicos e sequenciais. Cada módulo deve conter um título claro e uma série de 6 aulas.
-- Cada módulo deve ter um nome de capítulo criativo e em 1 palavra referente ao conteúdo do módulo para ser usado na opção de menus de uma sidebar.
-- Cada aula deve ter um título e subtópicos relevantes. Ao final de cada módulo, insira um parágrafo abrangendo o conteúdo das aulas que o aluno viu.
-- **Conteúdo Detalhado das Aulas:** Para cada aula, forneça explicações claras, detalhadas e didáticas em formato HTML.
-  Incluir exemplos práticos, analogias e, quando aplicável, estudos de caso e exemplos. O conteúdo deve ser aprofundado o suficiente para o nível de profundidade especificado. Crie as aulas em ordem e com o tópico da aula (Não precisa colocar numeração da aula no título dela, somente o nome da aula mesmo).
-  Utilize entre 550 e 600 palavras para o conteúdo de cada aula.
-  Use apenas as tags HTML básicas: p, strong, em, ul, li, code, pre, h1 a h6, a, img (com src e alt).
-- **Exercícios Práticos:** Ao final de cada módulo ou em aulas específicas, inclua atividades práticas para fixação do conteúdo. Podem ser exercícios, estudos de caso para análise ou quizzes rápidos. Forneça o enunciado e, se aplicável, um gabarito ou sugestão de solução. Use entre 150 e 160 palavras. O conteúdo deve ser em HTML.
-- **Resumo Final do Curso:** Crie um resumo abrangente em HTML, recapitulando os principais pontos abordados em todo o curso e reforçando os aprendizados. Use 150 palavras.
-- **Questionário de Avaliação:** Desenvolva um questionário final com 10 perguntas de múltipla escolha para testar o conhecimento adquirido. Cada pergunta deve ter um enunciado claro e 4 alternativas, sendo apenas uma correta.
+---
 
-**Observações:** A IA deve se esforçar para manter a consistência no tom de voz e no nível de profundidade ao longo de todo o curso. Use apenas as tags HTML permitidas para o conteúdo: p, strong, em, ul, li, code, pre, h1 a h6, a, img (com src e alt).
+## ESTRUTURA DO CURSO
 
-## Output Format
+- O curso deve conter **3 módulos sequenciais**, com dificuldade crescente.
+- Cada módulo deve conter:
+  - `"module_title"`: Um nome claro e descritivo
+  - `"chapter"`: Uma palavra curta (1 palavra) que represente o módulo (para menu lateral)
+  - **6 aulas**, com títulos relevantes e conteúdo técnico crescente
+- Cada aula deve ter:
+  - `"lesson_title"`: Um título direto e informativo
+  - `"content"`: HTML entre **550 e 600 palavras**, estruturado, com ensino progressivo
 
-A saída deve ser estruturada em JSON, seguindo o modelo abaixo:
+---
+
+## ORIENTAÇÕES PARA AS AULAS
+
+### 1. Início da Aula
+- Comece **diretamente com o conteúdo**.
+- **Proibido** o uso de frases introdutórias como: "Nesta aula veremos", "Agora que já estudamos...", ou similares.
+
+### 2. Desenvolvimento
+- Apresente o conceito central com profundidade
+- Contextualize com aplicações práticas
+- Conecte com o que foi aprendido nos módulos anteriores
+- Inclua explicações claras, comparações, estudos de caso e dicas
+- Evite explicações genéricas ou superficiais
+
+### 3. Estrutura HTML
+Use HTML organizado e visualmente agradável:
+
+- `<h2>` ou `<h3>`: para separar seções principais  
+- `<strong style="display:block; margin-top:1.5rem; margin-bottom:1.5rem;">`: para subtópicos internos visuais  
+- `<ul>` e `<li>`: para listas práticas e estruturadas  
+- `<code>` ou `<pre>`: para comandos, trechos técnicos ou sintaxes  
+- `<strong>` e `<em>`: para destaques importantes em frases  
+- `<p>`: apenas para parágrafos (nunca encapsule tudo em um único `<p>`)  
+- `<br>`: para quebras de linha pontuais onde necessário  
+
+### 4. Exemplos e Analogias
+- Sempre que possível, inclua **exemplos reais e contextualizados**
+- Use analogias para facilitar a compreensão de tópicos mais abstratos
+
+---
+
+## EXERCÍCIOS PRÁTICOS
+
+- Ao final de cada módulo (ou em uma aula estratégica), inclua uma **atividade prática** com **150 a 160 palavras** em HTML
+- Tipos de atividade: exercícios, estudo de caso ou quiz rápido
+- Sempre que possível, forneça gabarito ou sugestão de resposta comentada
+
+---
+
+## RESUMO FINAL DO CURSO
+
+- Escreva um **resumo com cerca de 150 palavras**, em HTML
+- Recapitule os principais pontos e aprendizados
+
+---
+
+## QUESTIONÁRIO FINAL
+
+- Elabore **10 perguntas de múltipla escolha**
+- Cada pergunta deve conter **4 alternativas**, com **apenas uma correta**
+- Use linguagem clara, objetiva e alinhada com o conteúdo ensinado
+
+---
+
+## FORMATO DE SAÍDA
+
+A resposta deve ser **exclusivamente um JSON** com a estrutura abaixo. Não inclua texto extra:
 
 {{
-
- "title": "<Título do Curso>",
-
- "subtitle": "<Subtítulo do Curso>",
-
- "wallpaper": "<URL ou descrição da imagem de capa>",
-
- "modules": [
-
-  {{
-
-   "module_title": "Título do Módulo 1",
-
-   "chapter": "NomeDoCapitulo",
-
-   "lessons": [
-
-​    {{
-
-​     "lesson_title": "Nome da Aula",
-
-​     "content": "<p>Conteúdo da aula em HTML...</p>"
-
-​    }},
-
-​    {{
-
-​     "lesson_title": "Nome da Aula",
-
-​     "content": "<p>Conteúdo da aula em HTML...</p>"
-
-​    }}
-
-   ],
-
-   "practice_activities": [
-
-​    {{
-
-​     "title": "Título da Atividade",
-
-​     "content": "<p>Descrição da atividade em HTML...</p>"
-
-​    }}
-
-   ]
-
+  "title": "<Título do Curso>",
+  "subtitle": "<Subtítulo do Curso>",
+  "wallpaper": "<Base64 ou string vazia>",
+  "modules": [
+    {{
+      "module_title": "Título do Módulo",
+      "chapter": "NomeDoCapitulo",
+      "lessons": [
+        {{
+          "lesson_title": "Título da Aula",
+          "content": "<Conteúdo da aula em HTML, com estrutura progressiva e exemplos práticos>"
+        }}
+        ...
+      ],
+      "practice_activities": [
+        {{
+          "title": "Título da Atividade",
+          "content": "<Conteúdo em HTML>"
+        }}
+      ]
+    }}
+    ...
+  ],
+  "final_summary": {{
+    "title": "Resumo Final",
+    "content": "<Resumo do curso em HTML>"
   }},
-
-  {{
-
-   "module_title": "Título do Módulo 2",
-
-   "chapter": "NomeDoCapitulo",
-
-   "lessons": [
-
-​    {{
-
-​     "lesson_title": "Nome da Aula",
-
-​     "content": "<p>Conteúdo da aula em HTML...</p>"
-
-​    }},
-
-​    {{
-
-​     "lesson_title": "Nome da Aula",
-
-​     "content": "<p>Conteúdo da aula em HTML...</p>"
-
-​    }}
-
-   ],
-
-   "practice_activities": [
-
-​    {{
-
-​     "title": "Título da Atividade",
-
-​     "content": "<p>Descrição da atividade em HTML...</p>"
-
-​    }}
-
-   ]
-
-  }},
-
-  {{
-
-   "module_title": "Título do Módulo 3",
-
-   "chapter": "NomeDoCapitulo",
-
-   "lessons": [
-
-​    {{
-
-​     "lesson_title": "Nome da Aula",
-
-​     "content": "<p>Conteúdo da aula em HTML...</p>"
-
-​    }},
-
-​    {{
-
-​     "lesson_title": "Nome da Aula",
-
-​     "content": "<p>Conteúdo da aula em HTML...</p>"
-
-​    }}
-
-   ],
-
-   "practice_activities": [
-
-​    {{
-
-​     "title": "Título da Atividade",
-
-​     "content": "<p>Descrição da atividade em HTML...</p>"
-
-​    }}
-
-   ]
-
-  }}
-
- ],
-
- "final_summary": {{
-
-  "title": "Resumo Final",
-
-  "content": "<p>Resumo final em HTML...</p>"
-
- }},
-
- "assessment_quiz": [
-
-  {{
-
-   "text": "Pergunta 1?",
-
-   "alternatives": [
-
-​    {{
-
-​     "text": "Alternativa A",
-
-​     "is_correct": false
-
-​    }},
-
-​    {{
-
-​     "text": "Alternativa B",
-
-​     "is_correct": true
-
-​    }},
-
-​    {{
-
-​     "text": "Alternativa C",
-
-​     "is_correct": false
-
-​    }},
-
-​    {{
-
-​     "text": "Alternativa D",
-
-​     "is_correct": false
-
-​    }}
-
-   ]
-
-  }}
-
- ]
-
+  "assessment_quiz": [
+    {{
+      "text": "Pergunta 1?",
+      "alternatives": [
+        {{ "text": "Alternativa A", "is_correct": false }},
+        {{ "text": "Alternativa B", "is_correct": true }},
+        {{ "text": "Alternativa C", "is_correct": false }},
+        {{ "text": "Alternativa D", "is_correct": false }}
+      ]
+    }}
+    ...
+  ]
 }}
 
-Para imagens de capa, utilize a base64 em string ou uma string vazia.
+---
 
-Siga rigorosamente este formato para a saída completa do curso.
-
-IMPORTANTE: Responda APENAS com o JSON, sem explicações, comentários ou texto adicional. 
-Preencha todos os campos com o conteúdo real do curso gerado, não use textos genéricos ou exemplos. 
-O campo 'title' é obrigatório no JSON de saída.
+**IMPORTANTE:**  
+- Responda apenas com o JSON acima.  
+- Não inclua comentários, explicações ou textos adicionais.  
+- Preencha todos os campos com conteúdo real e coerente.  
+- O campo `"title"` é obrigatório.
 """
+
 
         # Configurar timeout para a chamada da OpenAI
         client = openai.OpenAI()
