@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 from .. import schemas, models, utils
 from ..database import get_db
@@ -7,6 +7,8 @@ import os
 import json
 from dotenv import load_dotenv
 from typing import List
+import asyncio
+import httpx
 
 load_dotenv()
 
@@ -27,6 +29,10 @@ async def generate_course(
                 status_code=400,
                 detail="Créditos insuficientes para gerar o curso"
             )
+
+        # Deduzir créditos imediatamente para evitar race conditions
+        current_user.credits -= 1
+        db.commit()
 
         prompt = f"""
 Você é um especialista em criação de cursos online, com vasta experiência em didática e design instrucional.
@@ -261,15 +267,32 @@ Preencha todos os campos com o conteúdo real do curso gerado, não use textos g
 O campo 'title' é obrigatório no JSON de saída.
 """
 
+        # Configurar timeout para a chamada da OpenAI
         client = openai.OpenAI()
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-                {"role": "system", "content": "Você é um especialista em criação de cursos online, com vasta experiência em didática e design instrucional."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.8
-        )
+        
+        # Usar timeout para evitar que a operação fique travada
+        try:
+            response = await asyncio.wait_for(
+                asyncio.to_thread(
+                    client.chat.completions.create,
+                    model="gpt-4o",
+                    messages=[
+                        {"role": "system", "content": "Você é um especialista em criação de cursos online, com vasta experiência em didática e design instrucional."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.8
+                ),
+                timeout=300  # 5 minutos de timeout
+            )
+        except asyncio.TimeoutError:
+            # Se timeout, reembolsar o crédito
+            current_user.credits += 1
+            db.commit()
+            raise HTTPException(
+                status_code=408,
+                detail="Timeout na geração do curso. Tente novamente."
+            )
+
         response_text = response.choices[0].message.content
 
         try:
@@ -297,12 +320,12 @@ O campo 'title' é obrigatório no JSON de saída.
             db.commit()
             db.refresh(new_course)
 
-            current_user.credits -= 1
-            db.commit()
-
             return new_course
 
         except json.JSONDecodeError as e:
+            # Se erro no JSON, reembolsar o crédito
+            current_user.credits += 1
+            db.commit()
             raise HTTPException(
                 status_code=500,
                 detail=f"Erro ao processar resposta da IA: {str(e)}"
@@ -311,6 +334,12 @@ O campo 'title' é obrigatório no JSON de saída.
     except HTTPException:
         raise
     except Exception as e:
+        # Em caso de erro geral, tentar reembolsar o crédito
+        try:
+            current_user.credits += 1
+            db.commit()
+        except:
+            pass
         raise HTTPException(
             status_code=500,
             detail=f"Erro ao gerar curso: {str(e)}"

@@ -1,5 +1,5 @@
 fastapi==0.109.1
-uvicorn==0.27.0
+uvicorn[standard]==0.27.0
 python-jose[cryptography]==3.3.0
 passlib==1.7.4
 python-multipart==0.0.6
@@ -12,3 +12,6 @@ pydantic-settings==2.1.0
 email-validator
 google-generativeai
 openai
+httpx==0.26.0
+uvloop==0.19.0
+httptools==0.6.1
