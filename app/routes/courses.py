@@ -51,7 +51,7 @@ Opções de Personalização:
 - Cada módulo deve ter um nome de capítulo criativo e em 1 palavra referente ao conteúdo do módulo para ser usado na opção de menus de uma sidebar.
 - Cada aula deve ter um título e subtópicos relevantes. Ao final de cada módulo, insira um parágrafo abrangendo o conteúdo das aulas que o aluno viu.
 - **Conteúdo Detalhado das Aulas:** Para cada aula, forneça explicações claras, detalhadas e didáticas em formato HTML.
-  Incluir exemplos práticos, analogias e, quando aplicável, estudos de caso e exemplos. O conteúdo deve ser aprofundado o suficiente para o nível de profundidade especificado. Numere as aulas no formato '[NumeroModulo].[NumeroAula]'. Exemplo: no módulo 1 teremos: 1.1 + nome ou tópico da aula.
+  Incluir exemplos práticos, analogias e, quando aplicável, estudos de caso e exemplos. O conteúdo deve ser aprofundado o suficiente para o nível de profundidade especificado. Crie as aulas em ordem e com o tópico da aula.
   Utilize entre 500 e 510 palavras para o conteúdo de cada aula.
   Use apenas as tags HTML básicas: p, strong, em, ul, li, code, pre, h1 a h6, a, img (com src e alt).
 - **Exercícios Práticos:** Ao final de cada módulo ou em aulas específicas, inclua atividades práticas para fixação do conteúdo. Podem ser exercícios, estudos de caso para análise ou quizzes rápidos. Forneça o enunciado e, se aplicável, um gabarito ou sugestão de solução. Use entre 150 e 160 palavras. O conteúdo deve ser em HTML.
@@ -84,7 +84,7 @@ A saída deve ser estruturada em JSON, seguindo o modelo abaixo:
 
 ​    {{
 
-​     "lesson_title": "1.1 Nome da Aula",
+​     "lesson_title": "Nome da Aula",
 
 ​     "content": "<p>Conteúdo da aula em HTML...</p>"
 
@@ -92,7 +92,7 @@ A saída deve ser estruturada em JSON, seguindo o modelo abaixo:
 
 ​    {{
 
-​     "lesson_title": "1.2 Nome da Aula",
+​     "lesson_title": "Nome da Aula",
 
 ​     "content": "<p>Conteúdo da aula em HTML...</p>"
 
