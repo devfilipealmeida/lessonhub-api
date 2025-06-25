@@ -61,7 +61,7 @@ Se 'Sim', crie uma descrição coerente com o tema. Caso contrário, ignore essa
   - **6 aulas**, com títulos relevantes e conteúdo técnico crescente
 - Cada aula deve ter:
   - `"lesson_title"`: Um título direto e informativo
-  - `"content"`: HTML entre **550 e 600 palavras**, estruturado, com ensino progressivo
+  - `"content"`: HTML entre **300 e 400 palavras**, estruturado, com ensino progressivo e detalhado.
 
 ---
 
@@ -81,9 +81,8 @@ Se 'Sim', crie uma descrição coerente com o tema. Caso contrário, ignore essa
 ### 3. Estrutura HTML
 Use HTML organizado e visualmente agradável:
 
-- `<h2>` ou `<h3>`: para separar seções principais  
 - `<strong style="display:block; margin-top:1.5rem; margin-bottom:1.5rem;">`: para subtópicos internos visuais  
-- `<ul>` e `<li>`: para listas práticas e estruturadas  
+- `<ul>` e `<li>`: quando for listar pontos ou enumerar itens
 - `<code>` ou `<pre>`: para comandos, trechos técnicos ou sintaxes  
 - `<strong>` e `<em>`: para destaques importantes em frases  
 - `<p>`: apenas para parágrafos (nunca encapsule tudo em um único `<p>`)  
@@ -182,12 +181,10 @@ A resposta deve ser **exclusivamente um JSON** com a estrutura abaixo. Não incl
             response = await asyncio.wait_for(
                 asyncio.to_thread(
                     client.chat.completions.create,
-                    model="gpt-4o",
+                    model="o3-mini",
                     messages=[
-                        {"role": "system", "content": "Você é um especialista em criação de cursos online, com vasta experiência em didática e design instrucional."},
-                        {"role": "user", "content": prompt}
+                        {"role": "system", "content": prompt}
                     ],
-                    temperature=0.8
                 ),
                 timeout=300  # 5 minutos de timeout
             )
