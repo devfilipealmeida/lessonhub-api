@@ -23,7 +23,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         full_name=user.full_name,
         email=user.email,
         hashed_password=hashed_password,
-        credits=3
+        credits=10
     )
     
     db.add(new_user)
